@@ -45,7 +45,8 @@ app.get('/users/create', function (req, res) {
 });
 
 app.post('/users/create', function (req, res) {
-    console.log(req.body);
+    users.push(req.body);
+    res.redirect('/users')
 });
 
 
