@@ -2,6 +2,11 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
+var users = [
+    { id: 1, name: 'Quang' },
+    { id: 2, name: 'Ha' },
+];
+
 app.set('view engine', 'pug')
 app.set('views', './views')
 
@@ -13,17 +18,25 @@ app.get('/', function (req, res) {
 
 app.get('/users', function (req, res) {
     res.render('users/index', {
-        users: [
-            {
-                id: 1,
-                name: 'Quang'
-            },
-            {
-                id: 2,
-                name: 'Ha'
-            }
-        ]
+        users: users
     });
+});
+
+app.get('/users/search', function (req, res) {
+    var q = req.query.q
+    var matchedUsers = users.filter(function (user) {
+        return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
+        // Hàm indexOf sẽ tìm kiếm một phần tử trong mảng dựa vào giá trị của 
+        // phần tử, hàm sẽ trả về vị trị( khóa) của phần tử nếu tìm thấy và 
+        // trả về -1 nếu không tìm thấy.
+    })
+    res.render('users/index', {
+        users: matchedUsers
+    });
+})
+
+app.get('/users/create', function (req, res) {
+    res.render('users/create');
 });
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
