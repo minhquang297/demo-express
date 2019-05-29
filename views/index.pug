@@ -1,7 +1,9 @@
-extend ../layouts/common
+extend ./layouts/common
 
 block content
     h1 Hello #{name}
+    img(src="/images/avatar.jpg", alt="")
+    br
     a(href="/users") User List
     br
     a(href="/users/create") Create Users
