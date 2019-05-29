@@ -1,9 +1,14 @@
-h1 Create User
+extend ../layouts/common
 
-a(href="/users/create") New
-br
+block content
+    .container
+    h1.display-3 Create User
+    form(action='/users/create', method='POST')
+        .form-group
+            label(for='exampleInputName1') Name
+            input#exampleInputName1.form-control(type='text', name ="name")
+        .form-group
+            label(for='exampleInputPhone1') Phone
+            input#exampleInputPhone1.form-control(type='number', name ="phone")
+        button.btn.btn-primary Create
 
-form(action="/users/create" , method = "POST")
-    label Name
-    input(type="text", name = "name")
-    button Create

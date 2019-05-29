@@ -1,6 +1,7 @@
 {
   "users": [
     {
+<<<<<<< HEAD
       "name": "Bùi Minh Quang",
       "id": "boivb-pSy"
     },
@@ -19,6 +20,11 @@
     {
       "name": "Bùi Minh Quang",
       "id": "SOSBWdMqv"
+=======
+      "name": "IP",
+      "phone": "966195905",
+      "id": "vtRAOaBwJ"
+>>>>>>> demo
     }
   ]
 }
