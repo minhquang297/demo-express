@@ -1,11 +1,14 @@
-h1 Users
+extend ../layouts/common
 
-a(href="/users/create") New 
+block content
+    h1 Users
 
-form(action="/users/search" , method = "GET")
+    a(href="/users/create") New 
+
+    form(action="/users/search" , method = "GET")
     input(type="text" , name = "q")
     button Search
-ul
+    ul
     each user in users
         span= user.name
         span &nbsp
