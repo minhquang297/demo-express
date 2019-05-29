@@ -1,28 +1,3 @@
 {
-  "users": [
-    {
-      "name": "Bùi Minh Quang",
-      "id": "boivb-pSy"
-    },
-    {
-      "name": "qwe",
-      "id": "-GXjLBkE1"
-    },
-    {
-      "name": "quang",
-      "id": "kDHYz19HM"
-    },
-    {
-      "name": "Bùi Minh Quang",
-      "id": "EV3fxW4dA"
-    },
-    {
-      "name": "IP",
-      "id": "JNIUseZzw"
-    },
-    {
-      "name": "IP",
-      "id": "DMBXuoQbN"
-    }
-  ]
+  "users": []
 }

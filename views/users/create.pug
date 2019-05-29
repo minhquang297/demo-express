@@ -1,12 +1,14 @@
 extend ../layouts/common
 
 block content
-    h1 Create User
+    .container
+    h1.display-3 Create User
+    form(action='/users/create', method='POST')
+        .form-group
+            label(for='exampleInputName1') Name
+            input#exampleInputName1.form-control(type='text', aria-describedby='nameHelp', placeholder='Enter Name')
+        .form-group
+            label(for='exampleInputPhone1') Phone
+            input#exampleInputPhone1.form-control(type='number', aria-describedby='phoneHelp', placeholder='Enter Phone')
+        button.btn.btn-primary Create
 
-    a(href="/users/create") New
-    br
-
-    form(action="/users/create" , method = "POST")
-        label Name
-        input(type="text", name = "name")
-        button Create
