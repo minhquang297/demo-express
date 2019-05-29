@@ -9,7 +9,7 @@ router.get('/', controller.index);
 
 router.get('/search', controller.search);
 
-router.get('/create', create);
+router.get('/create', controller.create);
 
 router.get('/:id', controller.get);
 
