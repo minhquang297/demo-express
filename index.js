@@ -1,19 +1,23 @@
-const express = require('express');
-const app = express();
-const port = 3000;
-var bodyParser = require('body-parser')
+var express = require('express');
+var app = express();
+var bodyParser = require('body-parser');
 
-app.set('view engine', 'pug')
-app.set('views', './views')
+var port = 3000;
+var shortid = require('shortid');
+var low = require('lowdb');
+var FileSync = require('lowdb/adapters/FileSync');
+var adapter = new FileSync('db.json');
+db = low(adapter);
+
+app.set('view engine', 'pug');
+app.set('views', './views');
+
+// Set some defaults
+db.defaults({ users: [] })
+    .write()
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-var users = [
-    { id: 1, name: 'Quang' },
-    { id: 2, name: 'Ha' },
-];
-
 
 app.get('/', function (req, res) {
     res.render('index', {
@@ -23,7 +27,7 @@ app.get('/', function (req, res) {
 
 app.get('/users', function (req, res) {
     res.render('users/index', {
-        users: users
+        users: db.get('users').value()
     });
 });
 
@@ -44,10 +48,20 @@ app.get('/users/create', function (req, res) {
     res.render('users/create');
 });
 
+app.get('/users/:id', function (req, res) {
+    var id = req.params.id;
+    var user = db.get('users').find({ id: id }).value();
+    res.render('users/view', {
+        user: user
+    })
+});
+
 app.post('/users/create', function (req, res) {
-    users.push(req.body);
+    req.body.id = shortid.generate();
+    db.get('users').push(req.body).write();
     res.redirect('/users')
 });
+
 
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
