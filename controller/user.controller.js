@@ -40,7 +40,7 @@ module.exports.postCreate = function (req, res) {
         errors.push('Name is required.')
     }
     if (!req.body.phone) {
-        errors.push('Name is required.')
+        errors.push('Phone is required.')
     }
     if (errors.length) { //falsy truthy
         res.render('users/create', {

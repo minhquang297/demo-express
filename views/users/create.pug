@@ -5,13 +5,13 @@ block content
     h1.display-3 Create User
     if errors
         each error in errors
-        .alert.alert-danger= error
+            .alert.alert-danger= error
     form(action='/users/create', method='POST')
         .form-group
             label(for='exampleInputName1') Name
-            input#exampleInputName1.form-control(type='text', name ="name", value=values ? values.name : '')
+            input#exampleInputName1.form-control(type='text', name ="name", value= values ? values.name : "")
         .form-group
             label(for='exampleInputPhone1') Phone
-            input#exampleInputPhone1.form-control(type='number', name ="phone", value=values ? values.phone : '')
+            input#exampleInputPhone1.form-control(type='number', name ="phone", value= values ? values.phone : "")
         button.btn.btn-primary Create
 
