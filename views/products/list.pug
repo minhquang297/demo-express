@@ -1,0 +1,16 @@
+extend ../layouts/common
+
+block content
+    h1.display-3 Products List
+    .d-flex.align-items-center
+        form.ml-auto(action="/products/searchToList" , method = "GET", class = "d-flex")
+            input.mr-1(type="text" , name = "q" , class = "form-control")
+            button.btn.btn-primary Search
+    each product in products
+        .card(style='width: 16.3rem; display: inline-block; margin-top: 1rem;margin-right: 1rem;')
+            img.card-img(src= product.image, alt='product image')
+            .card-body
+                h4.card-title #{product.name}
+                p.card-text #{product.description}
+                h1.display-4 #{product.price}$
+                a.btn.btn-primary(href='/products/' + product.id) Add to card
