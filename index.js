@@ -16,7 +16,7 @@ app.set('views', './views');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(cookieParser());
+app.use(cookieParser('rwfwerfwerfw2342'));
 
 app.use('/auth', authRouter);
 app.use('/users', authMiddleware.requireAuth, userRouter);
