@@ -1,6 +1,6 @@
 var express = require('express');
-var validate = require('../validate/user.validate');
 
+var validate = require('../validate/user.validate');
 var controller = require('../controller/user.controller');
 
 

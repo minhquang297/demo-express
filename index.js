@@ -1,14 +1,14 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser')
+
+var port = 3000;
+var app = express();
 
 var userRouter = require('./router/user.router');
 var authRouter = require('./router/auth.router');
 
-var cookieParser = require('cookie-parser')
-
-var port = 3000;
-
-var app = express();
+var authMiddleware = require('./middlewares/auth.middleware');
 
 app.set('view engine', 'pug');
 app.set('views', './views');
@@ -16,19 +16,16 @@ app.set('views', './views');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
-app.use(cookieParser())
+app.use(cookieParser());
 
+app.use('/auth', authRouter);
+app.use('/users', authMiddleware.requireAuth, userRouter);
 
-app.get('/', function (req, res) {
+app.get('/', authMiddleware.requireAuth, function (req, res) {
     res.render('index', {
         name: 'Minh Quang'
     });
 })
-
-app.use('/auth', authRouter);
-
-app.use('/users', userRouter);
-
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 
