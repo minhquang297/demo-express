@@ -1,0 +1,22 @@
+extend ../layouts/common
+
+block content
+    h1.display-3 Cart
+    .row
+        table.table.table-hover
+            thead
+                tr.table-primary(style='color:#222;')
+                    th Image
+                    th Product
+                    th Quantity
+                    th Price
+                    th Action
+            tbody
+                tr
+                    td
+                        img(src="https://loremflickr.com/100/100/dog", alt="",style ="vertical-align: middle;width: 100px;height: 100px;")
+                    td Product  
+                    td 4
+                    td 145$
+                    td
+                        a.btn.btn-outline-danger(href='') Remove

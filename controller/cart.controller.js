@@ -19,3 +19,10 @@ module.exports.addToCart = function (req, res, next) {
     res.redirect('/products/list');
 
 };
+
+module.exports.index = function (req, res) {
+    res.render('cart/index', {
+        products: db.get('products').value()
+    });
+};
+
