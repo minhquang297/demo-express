@@ -10,21 +10,26 @@ var app = express();
 var userRouter = require('./router/user.router');
 var productRouter = require('./router/product.router');
 var authRouter = require('./router/auth.router');
+var cardRouter = require('./router/card.router');
 
 var authMiddleware = require('./middlewares/auth.middleware');
+var sessionMiddleware = require('./middlewares/session.middleware')
 
 app.set('view engine', 'pug');
 app.set('views', './views');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(express.static('public'));
 app.use(cookieParser(process.env.SESSION_SECRET));
+app.use(sessionMiddleware);
+
 
 app.use('/auth', authRouter);
 app.use('/users', authMiddleware.requireAuth, userRouter);
 app.use('/products', authMiddleware.requireAuth, productRouter);
-
+app.use('/card', cardRouter);
 
 app.get('/', authMiddleware.requireAuth, function (req, res) {
     res.render('index', {
