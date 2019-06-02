@@ -1,13 +1,17 @@
-var db = require('../db')
-var shortid = require('shortid');
+var Product = require('../models/product.model')
+// var shortid = require('shortid');
 
-module.exports.index = function (req, res) {
+module.exports.index = async function (req, res) {
+    // res.render('products/index', {
+    //     products: db.get('products').value()
+    // });
+    var products = await Product.find();
     res.render('products/index', {
-        products: db.get('products').value()
+        products: products
     });
 };
 
-module.exports.list = function (req, res) {
+module.exports.list = async function (req, res) {
     //Pagination (Phan trang)
     var page = parseInt(req.query.page) || 1;//n
     var perPage = 9 //x
@@ -15,20 +19,26 @@ module.exports.list = function (req, res) {
     var start = (page - 1) * perPage;
     var end = page * perPage;
 
-    var drop = (page - 1) * perPage;
+    // var drop = (page - 1) * perPage;
 
+    // res.render('products/list', {
+    //     // products: db.get('products').value().slice(start, end)
+    //     //cach 2 
+    //     // doc thu vien lodash
+    //     products: db.get('products').drop(drop).take(perPage).value()
+
+    // });
+    var products = await Product.find();
     res.render('products/list', {
-        // products: db.get('products').value().slice(start, end)
-        //cach 2 
-        // doc thu vien lodash
-        products: db.get('products').drop(drop).take(perPage).value()
-
+        products: products.slice(start, end)
     });
 };
 
-module.exports.search = function (req, res) {
+module.exports.search = async function (req, res) {
+    var products = await Product.find();
+
     var q = req.query.q
-    var matchedProducts = db.get('products').value().filter(function (product) {
+    var matchedProducts = products.filter(function (product) {
         return product.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
         // Hàm indexOf sẽ tìm kiếm một phần tử trong mảng dựa vào giá trị của 
         // phần tử, hàm sẽ trả về vị trị( khóa) của phần tử nếu tìm thấy và 
@@ -39,9 +49,11 @@ module.exports.search = function (req, res) {
     });
 };
 
-module.exports.searchToList = function (req, res) {
+module.exports.searchToList = async function (req, res) {
+    var products = await Product.find();
+
     var q = req.query.q
-    var matchedProducts = db.get('products').value().filter(function (product) {
+    var matchedProducts = products.filter(function (product) {
         return product.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
         // Hàm indexOf sẽ tìm kiếm một phần tử trong mảng dựa vào giá trị của 
         // phần tử, hàm sẽ trả về vị trị( khóa) của phần tử nếu tìm thấy và 
