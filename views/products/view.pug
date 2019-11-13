@@ -1,0 +1,11 @@
+extend ../layouts/common
+
+block content
+    h1.display-3 View Product
+    .row
+        .col-sm-7
+            img.img-fluid(src= product.image, alt='product image')
+        .col-sm-5
+            h1.display-4 #{product.name}
+            h1 #{product.description}
+            h1.display-3 #{product.price}$
