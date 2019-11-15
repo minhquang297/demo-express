@@ -1,0 +1,26 @@
+extend ../layouts/common
+
+block content
+    h1.display-3 Contracts
+    .d-flex.align-items-center
+        a.btn.btn-primary(href="/contracts/create") New Contract
+        form.ml-auto(action="/contracts/search" , method = "GET", class = "d-flex")
+            input.mr-1(type="text" , name = "q" , class = "form-control")
+            button.btn.btn-primary Search
+    table.table.mt-3
+        tr
+            th Address
+            th Client name
+            th Create At
+            th Status 
+            th Actions
+        each contract in contracts  
+            tr
+                td= contract.address
+                td= contract.clientName
+                td= contract.created_at
+                td= contract.status
+                td
+                    a.btn.btn-info(href='/contracts/' + contract.id) View
+                    a.btn.btn-warning(href='/contracts/edit/' + contract.id) Edit Status
+    

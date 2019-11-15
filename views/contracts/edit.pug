@@ -1,0 +1,13 @@
+extend ../layouts/common
+block content
+    .container
+    h1.display-3 Edit Contract of #{contract.clientName}
+    form(action='/contracts/edit', method='POST')
+        .form-group
+            label(for='exampleInputStatus1') Status
+            select#exampleInputStatus1.form-control(type='text', name="status", value= values ? values.status : contract.status)
+                option Awaiting Payment Confirmation
+                option Processing
+                option Delivered
+                option Cancel
+        button.btn.btn-primary Update

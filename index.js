@@ -13,6 +13,8 @@ ConnectDB();
 var userRouter = require('./router/user.router');
 var productRouter = require('./router/product.router');
 var authRouter = require('./router/auth.router');
+var contractRouter = require('./router/contract.router');
+
 // var cartRouter = require('./router/cart.router');
 
 var authMiddleware = require('./middlewares/auth.middleware');
@@ -31,6 +33,8 @@ app.use(sessionMiddleware)
 app.use('/auth', authRouter);
 app.use('/users', authMiddleware.requireAuth, userRouter);
 app.use('/products', authMiddleware.requireAuth, productRouter);
+app.use('/contracts', authMiddleware.requireAuth, contractRouter);
+
 // app.use('/cart', cartRouter);
 
 
