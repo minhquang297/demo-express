@@ -1,7 +1,7 @@
-module.exports.postCreate = function(req, res, next) {
-    //validation(login)
-    var errors = [];
+var Contract = require('../models/contract.model');
 
+module.exports.postCreate = function(req, res, next) {
+    var errors = [];
     if (!req.body.address) {
         errors.push('Address is required.')
     }
@@ -15,6 +15,27 @@ module.exports.postCreate = function(req, res, next) {
         res.render('contracts/create', {
             errors: errors,
             values: req.body
+        })
+        return;
+    }
+    next();
+}
+module.exports.search = async function(req, res, next) {
+    var errorsSearch = [];
+    var statusArr= ["Awaiting Payment Confirmation","Processing","Delivered","Cancel"];
+    var regex = /(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d/;
+    var isValid = regex.test(req.query.date) && req.query.date !== "";
+    if(isValid == false){
+        errorsSearch.push('Please take date from calender form !')
+    }
+    if(dropText != statusArr[0] ||dropText != statusArr[1]||dropText != statusArr[2]||dropText != statusArr[3]){
+        errorsSearch.push('Please take date from calender form !')
+    }
+    if (errorsSearch.length) { //falsy truthy
+        var contracts = await Contract.find();
+        res.render('contracts/index', {
+            errorsSearch: errorsSearch,
+            contracts: contracts
         })
         return;
     }

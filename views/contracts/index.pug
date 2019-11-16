@@ -1,11 +1,18 @@
 extend ../layouts/common
-
 block content
     h1.display-3 Contracts
+    if errorsSearch
+        each error in errorsSearch
+            .alert.alert-danger= error
     .d-flex.align-items-center
         a.btn.btn-primary(href="/contracts/create") New Contract
         form.ml-auto(action="/contracts/search" , method = "GET", class = "d-flex")
-            input.mr-1(type="text" , name = "q" , class = "form-control")
+            input#datepicker.mr-1(type="text" , name = "date" , class = "form-control")
+            select#exampleInputStatus1.form-control(type='text', name="dropText", value= values ? values.status : "")
+                option Awaiting Payment Confirmation
+                option Processing
+                option Delivered
+                option Cancel
             button.btn.btn-primary Search
     table.table.mt-3
         tr
@@ -23,4 +30,3 @@ block content
                 td
                     a.btn.btn-info(href='/contracts/' + contract.id) View
                     a.btn.btn-warning(href='/contracts/edit/' + contract.id) Edit Status
-    

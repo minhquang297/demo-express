@@ -8,7 +8,7 @@ var router = express.Router();
 
 router.get('/', controller.index);
 
-router.get('/search', controller.search);
+router.get('/search',validate.search, controller.search);
 
 router.get('/create', controller.create);
 

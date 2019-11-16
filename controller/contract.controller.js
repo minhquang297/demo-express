@@ -7,15 +7,30 @@ module.exports.index = async function(req, res) {
     })
 };
 
-module.exports.search = async function(req, res) {
-    var q = req.query.q;
-    var contracts = await Contract.find();
-    var matchedContracts = contracts.filter(function(contract) {
-        return contract.address.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-    })
 
+module.exports.search = async function(req, res) { //search by date
+    var date = req.query.date.split('/');
+    var statusDrop = req.query.dropText
+    var year = date[2];
+    var day = date[1];
+    var month = date[0];
+    var dateToSearch = `${year}-${month}-${day}`
+    var contracts = await Contract.find({
+        $and: [
+            {
+                created_at:{
+                    "$gte":new Date(`${dateToSearch}T00:00:00.000Z`),
+                    "$lt":new Date(`${dateToSearch}T23:59:59.999Z`) 
+                }
+            },
+            {
+                status: `${statusDrop}`
+            }
+        ]
+        
+    })
     res.render('contracts/index', {
-        contracts: matchedContracts
+        contracts: contracts
     });
 };
 
