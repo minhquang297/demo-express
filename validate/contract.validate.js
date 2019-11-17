@@ -22,13 +22,9 @@ module.exports.postCreate = function(req, res, next) {
 }
 module.exports.search = async function(req, res, next) {
     var errorsSearch = [];
-    var statusArr= ["Awaiting Payment Confirmation","Processing","Delivered","Cancel"];
     var regex = /(0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])[- /.](19|20)\d\d/;
     var isValid = regex.test(req.query.date) && req.query.date !== "";
-    if(isValid == false){
-        errorsSearch.push('Please take date from calender form !')
-    }
-    if(dropText != statusArr[0] ||dropText != statusArr[1]||dropText != statusArr[2]||dropText != statusArr[3]){
+    if (isValid == false) {
         errorsSearch.push('Please take date from calender form !')
     }
     if (errorsSearch.length) { //falsy truthy

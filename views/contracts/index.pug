@@ -8,8 +8,8 @@ block content
         a.btn.btn-primary(href="/contracts/create") New Contract
         form.ml-auto(action="/contracts/search" , method = "GET", class = "d-flex")
             input#datepicker.mr-1(type="text" , name = "date" , class = "form-control")
-            select#exampleInputStatus1.form-control(type='text', name="dropText", value= values ? values.status : "")
-                option Awaiting Payment Confirmation
+            select.form-control(type='text', name = "statusSearch")
+                option Awaiting
                 option Processing
                 option Delivered
                 option Cancel

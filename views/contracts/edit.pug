@@ -5,9 +5,9 @@ block content
     form(action='/contracts/edit', method='POST')
         .form-group
             label(for='exampleInputStatus1') Status
-            select#exampleInputStatus1.form-control(type='text', name="status", value= values ? values.status : contract.status)
-                option Awaiting Payment Confirmation
+            select#exampleInputStatus1.form-control(type='text', name="status")
+                option Awaiting
                 option Processing
                 option Delivered
                 option Cancel
-        button.btn.btn-primary Update
+        button.btn.btn-primary(href='/contracts/' + contract.id) Update 

@@ -10,24 +10,22 @@ module.exports.index = async function(req, res) {
 
 module.exports.search = async function(req, res) { //search by date
     var date = req.query.date.split('/');
-    var statusDrop = req.query.dropText
     var year = date[2];
     var day = date[1];
     var month = date[0];
     var dateToSearch = `${year}-${month}-${day}`
+    console.log(req.body.statusSearch)
     var contracts = await Contract.find({
-        $and: [
-            {
-                created_at:{
-                    "$gte":new Date(`${dateToSearch}T00:00:00.000Z`),
-                    "$lt":new Date(`${dateToSearch}T23:59:59.999Z`) 
+        $and: [{
+                created_at: {
+                    "$gte": new Date(`${dateToSearch}T00:00:00.000Z`),
+                    "$lt": new Date(`${dateToSearch}T23:59:59.999Z`)
                 }
             },
             {
-                status: `${statusDrop}`
+                status: `${req.body.statusSearch}`
             }
         ]
-        
     })
     res.render('contracts/index', {
         contracts: contracts
