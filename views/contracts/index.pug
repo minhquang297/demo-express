@@ -9,10 +9,11 @@ block content
         form.ml-auto(action="/contracts/search" , method = "GET", class = "d-flex")
             input#datepicker.mr-1(type="text" , name = "date" , class = "form-control")
             select.form-control(type='text', name = "statusSearch")
-                option Awaiting
-                option Processing
-                option Delivered
-                option Cancel
+                option(value='' selected hidden) Select here
+                option(value='Awaiting') Awaiting
+                option(value='Processing') Processing
+                option(value='Delivered') Delivered
+                option(value='Cancel') Cancel
             button.btn.btn-primary Search
     table.table.mt-3
         tr

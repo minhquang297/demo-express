@@ -1,8 +1,15 @@
 extend ../layouts/common
 block content
     .container
-    h1.display-3 Edit Contract of #{contract.clientName}
+    h1.display-3 Edit Contract of #{contract.clientName}#{contract.id}
     form(action='/contracts/edit', method='POST')
+        input(type='hidden', name="id", value=contract.id)
+        //- .form-group
+        //-     label(for='exampleInputAddress1') Address
+        //-     input#exampleInputAddress1.form-control(type='text', name ="address", value= values ? values.address : contract.address)
+        //- .form-group
+        //-     label(for='exampleInputName1') Client name
+        //-     input#exampleInputName1.form-control(type='text', name ="clientName", value= values ? values.clientName : contract.clientName)
         .form-group
             label(for='exampleInputStatus1') Status
             select#exampleInputStatus1.form-control(type='text', name="status")
@@ -10,4 +17,5 @@ block content
                 option Processing
                 option Delivered
                 option Cancel
-        button.btn.btn-primary(href='/contracts/' + contract.id) Update 
+                
+        button.btn.btn-primary(type="submit") Update 

@@ -14,19 +14,26 @@ module.exports.search = async function(req, res) { //search by date
     var day = date[1];
     var month = date[0];
     var dateToSearch = `${year}-${month}-${day}`
-    console.log(req.body.statusSearch)
-    var contracts = await Contract.find({
-        $and: [{
-                created_at: {
-                    "$gte": new Date(`${dateToSearch}T00:00:00.000Z`),
-                    "$lt": new Date(`${dateToSearch}T23:59:59.999Z`)
-                }
-            },
-            {
-                status: `${req.body.statusSearch}`
+    var condition = req.query.statusSearch
+    var contracts = await Contract.find(
+        condition == '' ? {
+            created_at: {
+                "$gte": new Date(`${dateToSearch}T00:00:00.000Z`),
+                "$lt": new Date(`${dateToSearch}T23:59:59.999Z`)
             }
-        ]
-    })
+        } : {
+            $and: [{
+                    created_at: {
+                        "$gte": new Date(`${dateToSearch}T00:00:00.000Z`),
+                        "$lt": new Date(`${dateToSearch}T23:59:59.999Z`)
+                    }
+                },
+                {
+                    status: `${req.query.statusSearch}`
+                }
+            ]
+        }
+    )
     res.render('contracts/index', {
         contracts: contracts
     });
@@ -71,8 +78,12 @@ module.exports.postCreate = function(req, res) {
 }
 
 module.exports.updateContract = function(req, res) {
-    Contract.findOneAndUpdate({ id: req.body.id }, req.body, { new: true }, (err, doc) => {
-        if (err) return res.status(500).send(err);
-        return res.redirect('/contracts')
+    Contract.findOneAndUpdate({ "_id": req.body.id }, req.body, { new: true }, (err, doc) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send();
+        } else {
+            res.redirect('/contracts');
+        }
     });
-}
+};

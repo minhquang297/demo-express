@@ -7,17 +7,25 @@ module.exports.index = async function(req, res) {
         products: products
     })
 };
+// Phân trang 
+// module.exports.list = function(req, res) {
+//     const options = {
+//         sort: { _id: -1 },
+//         limit: parseInt(req.query.limit || 20, 10),
+//         page: parseInt(req.query.page || 1, 10)
+//     }
+//     Product.paginate({}, options).then(function(products) {
+//         res.render('products/list', {
+//             products: products
+//         })
+//     })
+// };
 
-module.exports.list = function(req, res) {
-    const options = {
-        sort: { _id: -1 },
-        limit: parseInt(req.query.limit || 20, 10),
-        page: parseInt(req.query.page || 1, 10)
-    }
-    Product.paginate({}, options).then(function(products) {
-        res.render('products/list', {
-            products: products
-        })
+module.exports.list = async function(req, res) {
+    var products = await Product.find();
+
+    res.render('products/list', {
+        products: products
     })
 };
 
@@ -25,8 +33,8 @@ module.exports.search = async function(req, res) {
     var q = req.query.q
     var products = await Product.find();
     var matchedProducts = products.filter(function(product) {
-        return product.name.toLowerCase().indexOf(q.toLowerCase()) !== -1 
-        || product.price.toLowerCase().indexOf(q.toLowerCase()) !== -1 ;
+        return product.name.toLowerCase().indexOf(q.toLowerCase()) !== -1 ||
+            product.price.toLowerCase().indexOf(q.toLowerCase()) !== -1;
         // Hàm indexOf sẽ tìm kiếm một phần tử trong mảng dựa vào giá trị của 
         // phần tử, hàm sẽ trả về vị trị( khóa) của phần tử nếu tìm thấy và 
         // trả về -1 nếu không tìm thấy.
@@ -40,8 +48,8 @@ module.exports.searchToList = async function(req, res) {
     var q = req.query.q
     var products = await Product.find();
     var matchedProducts = products.filter(function(product) {
-        return product.name.toLowerCase().indexOf(q.toLowerCase()) !== -1 
-        || product.price.toLowerCase().indexOf(q.toLowerCase()) !== -1 ;
+        return product.name.toLowerCase().indexOf(q.toLowerCase()) !== -1 ||
+            product.price.toLowerCase().indexOf(q.toLowerCase()) !== -1;
     })
     res.render('products/list', {
         products: matchedProducts
